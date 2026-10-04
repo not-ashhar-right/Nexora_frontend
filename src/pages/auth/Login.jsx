@@ -11,7 +11,7 @@ function Login() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { login, demoLogin } = useAuth();
+  const { login } = useAuth();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -20,7 +20,6 @@ function Login() {
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [demoLoading, setDemoLoading] = useState("");
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -88,23 +87,6 @@ function Login() {
     }
   };
 
-  const handleDemoLogin = (role) => {
-    setError("");
-    setDemoLoading(role);
-
-    try {
-      const user = demoLogin(role);
-
-      navigate(getDashboardRoute(user.role), {
-        replace: true,
-      });
-    } catch (err) {
-      setError(err.message || "Unable to start demo mode.");
-    } finally {
-      setDemoLoading("");
-    }
-  };
-
   return (
     <div className="auth-page">
       <div className="auth-card">
@@ -149,51 +131,7 @@ function Login() {
           </Button>
         </form>
 
-        <div className="auth-divider">
-          <span>or</span>
-        </div>
 
-        <div className="demo-section">
-          <div className="demo-heading">
-            <strong>Preview the frontend</strong>
-            <span>Backend not required</span>
-          </div>
-
-          <div className="demo-buttons">
-            <Button
-              type="button"
-              variant="secondary"
-              fullWidth
-              loading={demoLoading === "merchant"}
-              disabled={Boolean(demoLoading)}
-              onClick={() => handleDemoLogin("merchant")}
-            >
-              Preview as Merchant
-            </Button>
-
-            <Button
-              type="button"
-              variant="secondary"
-              fullWidth
-              loading={demoLoading === "supplier"}
-              disabled={Boolean(demoLoading)}
-              onClick={() => handleDemoLogin("supplier")}
-            >
-              Preview as Supplier
-            </Button>
-
-            <Button
-              type="button"
-              variant="secondary"
-              fullWidth
-              loading={demoLoading === "admin"}
-              disabled={Boolean(demoLoading)}
-              onClick={() => handleDemoLogin("admin")}
-            >
-              Preview as Admin
-            </Button>
-          </div>
-        </div>
 
         <div className="auth-footer">
           <span>Don't have an account?</span>{" "}

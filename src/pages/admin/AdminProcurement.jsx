@@ -284,7 +284,7 @@ useEffect(() => {
         selectedRequest?.productName ||
         selectedRequest?.product?.name,
 
-      supplierId: selectedSupplier.id,
+      supplierId: selectedSupplier.supplierId || selectedSupplier.id,
 
       supplierName:
         selectedSupplier.supplierName,
